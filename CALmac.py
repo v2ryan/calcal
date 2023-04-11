@@ -6,7 +6,7 @@ from googleapiclient.errors import HttpError
 from googleapiclient.discovery import build
 
 # Replace the file path with the actual path to your Excel file
-excel_file = r'Users/hoisanng/Desktop/calcal/eye2023.xlsx'
+excel_file = 'eye2022.xlsx'
 
 # Read the Excel file into a pandas DataFrame
 df = pd.read_excel(excel_file)
@@ -25,7 +25,7 @@ def get_calendar_service():
     else:
         import os
 
-        client_secret_path = r'Users/hoisanng/Desktop/calcal/client_secret.json'
+        client_secret_path = 'client_secret.json'
         flow = InstalledAppFlow.from_client_secrets_file(client_secret_path, SCOPES)
 
         creds = flow.run_local_server(port=0)
@@ -53,7 +53,7 @@ def main():
         if pd.isnull(row['Date ']) or pd.isnull(row['Time']):
             continue
 
-        time_obj = datetime.datetime.strptime(str(row['Time']), '%I:%M %p').time()
+        time_obj = datetime.datetime.strptime(str(row['Time']), '%H:%M:%S').time()
         start_time = datetime.datetime.combine(row['Date '], time_obj)
         end_time = start_time + datetime.timedelta(hours=1)  # Adjust the duration as needed
 
